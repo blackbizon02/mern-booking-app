@@ -31,3 +31,14 @@ export const createHotel = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Something went wrong!" });
   }
 };
+
+
+export const getHotels = async (req: Request,res: Response) => {
+  try {
+    const hotels = await Hotel.find({userId: req.userId});
+
+    res.status(200).json(hotels);
+  } catch (error) {
+    res.status(500).json({message: "Error fetching hotels!"})
+  }
+}

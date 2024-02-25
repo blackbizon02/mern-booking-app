@@ -1,5 +1,5 @@
 import express from "express";
-import { createHotel } from "../controllers/HotelsController";
+import { createHotel, getHotels } from "../controllers/HotelsController";
 import multer from "multer";
 import auth from "../middleware/auth";
 import { body } from "express-validator";
@@ -21,5 +21,7 @@ router.post("/", [
   body("pricePerNight").notEmpty().isNumeric().withMessage("Price Per Night is required and must be a number!"),
   body("facilities").notEmpty().isArray().withMessage("Facilities is required!"),
 ], auth, upload.array("imageFiles", 6), createHotel);
+
+router.get("/", auth, getHotels);
 
 export default router;
