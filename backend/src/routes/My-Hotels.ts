@@ -24,7 +24,7 @@ router.post("/", [
 
 router.get("/", auth, getHotels);
 
-router.get("/:id", editHotel);
+router.get("/:id", auth, editHotel);
 
 router.put("/:id", auth, upload.array("imageFiles"), updateHotel);
 

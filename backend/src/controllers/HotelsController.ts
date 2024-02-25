@@ -39,7 +39,7 @@ export const editHotel = async (req: Request, res: Response) => {
   const id = req.params.id;
 
   try {
-    const hotel = await Hotel.findOne({ _id: id });
+    const hotel = await Hotel.findOne({ _id: id, userId: req.userId });
     res.status(200).json(hotel);
   } catch (error) {
     res.status(500).json({ message: "Error fetching hotel!" });
