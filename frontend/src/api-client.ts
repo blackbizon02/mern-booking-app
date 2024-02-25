@@ -34,13 +34,15 @@ export const signIn = async (formData: SignInFormData) => {
   const responseBody = await response.json();
 
   if (!response.ok) {
-    throw new Error(responseBody.nessage);
+    throw new Error(responseBody.message);
   }
 
   return responseBody.email;
 };
 
 export const validateToken = async () => {
+  console.log(API_BASE_URL);
+  
   const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
     credentials: "include",
   });

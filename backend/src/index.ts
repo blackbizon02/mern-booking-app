@@ -2,6 +2,7 @@ import express, { urlencoded, Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
+import morgan from "morgan";
 
 //routes
 import userAuthRoutes from "./routes/AuthRoutes";
@@ -21,7 +22,13 @@ cloudinary.config({
 //database connect
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
 
+
+
 const app = express();
+
+if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"));
+}
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
 app.use(
