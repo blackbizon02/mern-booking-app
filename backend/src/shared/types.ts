@@ -1,4 +1,4 @@
-export interface UserType {
+export type UserType = {
   email: string;
   password: string;
   firstName: string;
@@ -7,7 +7,7 @@ export interface UserType {
   comparePassword: (candidatePassword: string) => Promise<boolean>;
 }
 
-export interface HotelType {
+export type HotelType = {
   _id: string;
   userId: string;
   name: string;
@@ -19,7 +19,7 @@ export interface HotelType {
   childCount: number;
   facilities: string[];
   pricePerNight: number;
-  starRating: Number;
+  starRating: number;
   imageUrls: string[];
   lastUpdated: Date;
 }
