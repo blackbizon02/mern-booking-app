@@ -10,6 +10,7 @@ export interface UserType extends Document {
 }
 
 export interface HotelType extends Document {
+  _id: string;
   userId: string;
   name: string;
   city: string;
