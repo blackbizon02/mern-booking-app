@@ -1,6 +1,4 @@
-import { Document } from "mongoose";
-
-export interface UserType extends Document {
+export interface UserType {
   email: string;
   password: string;
   firstName: string;
@@ -9,7 +7,7 @@ export interface UserType extends Document {
   comparePassword: (candidatePassword: string) => Promise<boolean>;
 }
 
-export interface HotelType extends Document {
+export interface HotelType {
   _id: string;
   userId: string;
   name: string;
