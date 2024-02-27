@@ -7,6 +7,7 @@ import morgan from "morgan";
 //routes
 import userAuthRoutes from "./routes/AuthRoutes";
 import hotelRoutes from "./routes/My-Hotels";
+import searchHotelRoutes from "./routes/HotelRoutes";
 
 import cookieParser from "cookie-parser";
 import path from "path";
@@ -21,8 +22,6 @@ cloudinary.config({
 
 //database connect
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
-
-
 
 const app = express();
 
@@ -44,6 +43,7 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 app.use("/api/auth", userAuthRoutes);
 app.use("/api/my-hotels", hotelRoutes);
+app.use("/api/hotels", searchHotelRoutes);
 
 app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
