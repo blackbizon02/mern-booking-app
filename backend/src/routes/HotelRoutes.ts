@@ -1,9 +1,14 @@
 import express from "express";
-import auth from "../middleware/auth";
-import { searchHotels } from "../controllers/HotelSearch";
+import { getHotel, searchHotels } from "../controllers/HotelSearch";
+import { param } from "express-validator";
 
 const router = express.Router();
 
 router.get("/search", searchHotels);
+router.get(
+  "/:id",
+  [param("id").notEmpty().withMessage("Hotel Id is required!")],
+  getHotel
+);
 
 export default router;

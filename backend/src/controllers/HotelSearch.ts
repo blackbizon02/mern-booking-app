@@ -1,6 +1,28 @@
 import { Request, Response } from "express";
 import Hotel from "../models/Hotel";
 import { HotelSearchResponse } from "../shared/types";
+import { validationResult } from "express-validator";
+
+export const getHotel = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array() });
+  }
+
+  const id = req.params.id.toString();
+  try {
+    const hotel = await Hotel.findById(id);
+
+    if (!hotel) {
+      return res.status(404).json({ message: "Hotel not found" });
+    }
+
+    res.status(200).json(hotel);
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong!" });
+  }
+};
 
 export const searchHotels = async (req: Request, res: Response) => {
   try {
@@ -25,7 +47,10 @@ export const searchHotels = async (req: Request, res: Response) => {
     );
     const skip = (pageNumber - 1) * pageSize;
 
-    const hotel = await Hotel.find(query).sort(sortOptions).skip(skip).limit(pageSize).exec();
+    const hotel = await Hotel.find(query)
+      .sort(sortOptions)
+      .skip(skip)
+      .limit(pageSize)
 
     const total = await Hotel.countDocuments(query);
 
@@ -43,7 +68,6 @@ export const searchHotels = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Something went wrong!" });
   }
 };
-
 
 const constructSearchQuery = (queryParams: any) => {
   let constructedQuery: any = {};
