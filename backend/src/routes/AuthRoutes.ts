@@ -1,5 +1,11 @@
 import express from "express";
-import { authVerify, login, register, logout } from "../controllers/AuthController";
+import {
+  authVerify,
+  login,
+  register,
+  logout,
+  getUser,
+} from "../controllers/AuthController";
 import { check } from "express-validator";
 import verifyToken from "../middleware/auth";
 
@@ -19,15 +25,24 @@ router.post(
   register
 );
 
-router.post("/login", [
-  check("email", "Email is required").isEmail(),
-  check("password", "Password is required with 6 or more characters").isLength({
-    min: 6,
-  }),
-], login);
+router.post(
+  "/login",
+  [
+    check("email", "Email is required").isEmail(),
+    check(
+      "password",
+      "Password is required with 6 or more characters"
+    ).isLength({
+      min: 6,
+    }),
+  ],
+  login
+);
 
-router.get('/logout', logout);
+router.get("/me", verifyToken, getUser);
 
-router.get('/validate-token', verifyToken, authVerify);
+router.get("/logout", logout);
+
+router.get("/validate-token", verifyToken, authVerify);
 
 export default router;
