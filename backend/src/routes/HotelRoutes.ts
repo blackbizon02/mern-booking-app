@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getHotel,
+  getMainPageHotels,
   postBooking,
   searchHotels,
   stripePaymentIntent,
@@ -11,6 +12,9 @@ import verifyToken from "../middleware/auth";
 const router = express.Router();
 
 router.get("/search", searchHotels);
+
+router.get("/", getMainPageHotels)
+
 router.get(
   "/:id",
   [param("id").notEmpty().withMessage("Hotel Id is required!")],

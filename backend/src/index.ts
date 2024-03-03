@@ -8,6 +8,7 @@ import morgan from "morgan";
 import userAuthRoutes from "./routes/AuthRoutes";
 import hotelRoutes from "./routes/My-Hotels";
 import searchHotelRoutes from "./routes/HotelRoutes";
+import bookingRoutes from "./routes/My-Bookings";
 
 import cookieParser from "cookie-parser";
 import path from "path";
@@ -44,6 +45,7 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 app.use("/api/auth", userAuthRoutes);
 app.use("/api/my-hotels", hotelRoutes);
 app.use("/api/hotels", searchHotelRoutes);
+app.use("/api/my-bookings", bookingRoutes);
 
 app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
